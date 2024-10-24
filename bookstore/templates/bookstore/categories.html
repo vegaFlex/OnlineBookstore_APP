@@ -1,0 +1,28 @@
+{% extends "bookstore/base.html" %}
+
+{% block title %}Книги по категории{% endblock %}
+
+{% block content %}
+    <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4">{{ category.name }}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for book in books %}
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    <a href="{% url 'book_detail' book.id %}">
+                        <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-64 object-cover">
+                    </a>
+                    <div class="p-4">
+                        <a href="{% url 'book_detail' book.id %}" class="text-lg font-semibold mb-2 block hover:underline">{{ book.title }}</a>
+                        <p class="text-sm text-gray-600">{{ book.author }}</p>
+                        <p class="text-red-600 font-bold mb-2">{{ book.price }} лв.</p>
+                        <div class="flex justify-between mb-2">
+                            <a href="{% url 'add_to_favorites' book.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добави в любими</a>
+                            <a href="{% url 'checkout' book.id %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Купи с карта</a>
+                        </div>
+                        <a href="{% url 'add_review' book.id %}" class="block text-center bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Добави отзив</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

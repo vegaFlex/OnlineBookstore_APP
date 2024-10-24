@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>{{ book.title }}</h1>
+    <p><strong>Автор:</strong> {{ book.author }}</p>
+    <p><strong>Описание:</strong> {{ book.description }}</p>
+    <p><strong>Цена:</strong> {{ book.price }} лв.</p>
+    <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" style="width:200px; height:auto;">
+
+{#Бутон за добавяне в любими#}
+    <a href="{% url 'add_to_favorites' book.id %}">Добави в любими</a>
+
+{#Линк за добавяне на отзив#}
+    <a href="{% url 'add_review' book.id %}">Добави отзив</a>
+
+{#Отзиви за книгата #}
+    <h2>Отзиви</h2>
+    {% if book.reviews.all %}
+        <ul>
+            {% for review in book.reviews.all %}
+                <li>
+                    <strong>{{ review.user }}:</strong> {{ review.comment }} (Оценка: {{ review.rating }})
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Няма отзиви за тази книга.</p>
+    {% endif %}
+
+{#Бутони за социални мрежи#}
+    <div class="social-buttons">
+        <a href="https://facebook.com/share?url={{ request.build_absolute_uri }}">Сподели във Facebook</a>
+        <a href="https://twitter.com/share?url={{ request.build_absolute_uri }}">Сподели в Twitter</a>
+        <a href="https://linkedin.com/shareArticle?url={{ request.build_absolute_uri }}">Сподели в LinkedIn</a>
+    </div>
+
+{#Бутон за плащане с карта#}
+    <a href="{% url 'checkout' book.id %}">Купи с карта</a>
+</body>
+</html>

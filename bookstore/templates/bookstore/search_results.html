@@ -1,0 +1,22 @@
+{% extends "bookstore/base.html" %}
+
+{% block title %}Резултати от търсенето{% endblock %}
+
+{% block content %}
+    <h2 class="text-2xl font-bold mb-4">Резултати от търсенето за "{{ query }}"</h2>
+    {% if results %}
+        <ul>
+            {% for book in results %}
+                <li>
+                    <a href="{% url 'book_detail' book.id %}" class="block bg-white p-4 rounded shadow mb-4 hover:bg-gray-100">
+                        <h3 class="font-semibold">{{ book.title }}</h3>
+                        <p>Автор: {{ book.author }}</p>
+                        <p>Жанр: {{ book.genre }}</p>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Няма намерени книги за "{{ query }}".</p>
+    {% endif %}
+{% endblock %}
