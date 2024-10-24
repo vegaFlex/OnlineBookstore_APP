@@ -13,9 +13,14 @@ def index(request):
     return render(request, 'bookstore/index.html', {'books': books, 'categories': categories})
 
 # Детайлна страница за книгата
+# def book_detail(request, book_id):
+#     book = get_object_or_404(Book, id=book_id)
+#     return render(request, 'bookstore/book_detail.html', {'book': book})
+
 def book_detail(request, book_id):
     book = get_object_or_404(Book, id=book_id)
-    return render(request, 'bookstore/book_detail.html', {'book': book})
+    categories = Category.objects.all()  # Вземa всички категории
+    return render(request, 'bookstore/book_detail.html', {'book': book, 'categories': categories})
 
 # Добавяне на книга към любимите
 @login_required

@@ -9,8 +9,7 @@
             {% for book in books %}
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
                     <a href="{% url 'book_detail' book.id %}">
-{#                        <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-64 object-cover">#}
-                        <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-auto max-h-64 object-contain">
+                        <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-64 object-cover">
                     </a>
                     <div class="p-4">
                         <a href="{% url 'book_detail' book.id %}" class="text-lg font-semibold mb-2 block hover:underline">{{ book.title }}</a>

@@ -1,47 +1,350 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ book.title }}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-    <h1>{{ book.title }}</h1>
-    <p><strong>Автор:</strong> {{ book.author }}</p>
-    <p><strong>Описание:</strong> {{ book.description }}</p>
-    <p><strong>Цена:</strong> {{ book.price }} лв.</p>
-    <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" style="width:200px; height:auto;">
-
+{#{% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>{{ book.title }}</title>#}
+{#    <link rel="stylesheet" href="{% static 'css/styles.css' %}">#}
+{#</head>#}
+{#<body>#}
+{#    <h1>{{ book.title }}</h1>#}
+{#    <p><strong>Автор:</strong> {{ book.author }}</p>#}
+{#    <p><strong>Описание:</strong> {{ book.description }}</p>#}
+{#    <p><strong>Цена:</strong> {{ book.price }} лв.</p>#}
+{#    <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" style="width:200px; height:auto;">#}
+{##}
 {#Бутон за добавяне в любими#}
-    <a href="{% url 'add_to_favorites' book.id %}">Добави в любими</a>
-
+{#    <a href="{% url 'add_to_favorites' book.id %}">Добави в любими</a>#}
+{##}
 {#Линк за добавяне на отзив#}
-    <a href="{% url 'add_review' book.id %}">Добави отзив</a>
-
+{#    <a href="{% url 'add_review' book.id %}">Добави отзив</a>#}
+{##}
 {#Отзиви за книгата #}
-    <h2>Отзиви</h2>
-    {% if book.reviews.all %}
-        <ul>
-            {% for review in book.reviews.all %}
-                <li>
-                    <strong>{{ review.user }}:</strong> {{ review.comment }} (Оценка: {{ review.rating }})
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Няма отзиви за тази книга.</p>
-    {% endif %}
-
+{#    <h2>Отзиви</h2>#}
+{#    {% if book.reviews.all %}#}
+{#        <ul>#}
+{#            {% for review in book.reviews.all %}#}
+{#                <li>#}
+{#                    <strong>{{ review.user }}:</strong> {{ review.comment }} (Оценка: {{ review.rating }})#}
+{#                </li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    {% else %}#}
+{#        <p>Няма отзиви за тази книга.</p>#}
+{#    {% endif %}#}
+{##}
 {#Бутони за социални мрежи#}
-    <div class="social-buttons">
-        <a href="https://facebook.com/share?url={{ request.build_absolute_uri }}">Сподели във Facebook</a>
-        <a href="https://twitter.com/share?url={{ request.build_absolute_uri }}">Сподели в Twitter</a>
-        <a href="https://linkedin.com/shareArticle?url={{ request.build_absolute_uri }}">Сподели в LinkedIn</a>
-    </div>
-
+{#    <div class="social-buttons">#}
+{#        <a href="https://facebook.com/share?url={{ request.build_absolute_uri }}">Сподели във Facebook</a>#}
+{#        <a href="https://twitter.com/share?url={{ request.build_absolute_uri }}">Сподели в Twitter</a>#}
+{#        <a href="https://linkedin.com/shareArticle?url={{ request.build_absolute_uri }}">Сподели в LinkedIn</a>#}
+{#    </div>#}
+{##}
 {#Бутон за плащане с карта#}
-    <a href="{% url 'checkout' book.id %}">Купи с карта</a>
-</body>
-</html>
+{#    <a href="{% url 'checkout' book.id %}">Купи с карта</a>#}
+{#</body>#}
+{#</html>#}
+
+{#===============================================>#}
+{#{% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="bg">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>{{ book.title }}</title>#}
+{#    <link rel="stylesheet" href="{% static 'css/styles.css' %}">#}
+{#</head>#}
+{#<body class="bg-gray-100 text-gray-800">#}
+{#    <header class="bg-gray-800 text-white p-4">#}
+{#        <h1 class="text-3xl">Детайли за книгата: {{ book.title }}</h1>#}
+{#    </header>#}
+{##}
+{#    <main class="container mx-auto p-4">#}
+{#        <div class="flex flex-col lg:flex-row gap-8 mt-6">#}
+{#            Лява секция за изображението на книгата#}
+{#            <div class="lg:w-1/4 bg-white p-4 shadow-md rounded-md">#}
+{#                <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-auto object-cover rounded-md">#}
+{#                <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-auto max-h-64 object-contain shadow-card">#}
+{#                <h2 class="text-lg font-bold mt-4">{{ book.title }}</h2>#}
+{#            </div>#}
+{##}
+{#            Дясна секция за детайлите на книгата#}
+{#            <div class="lg:w-3/4">#}
+{#                <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ book.title }}</h2>#}
+{#                <p class="text-gray-700 mb-2"><strong>Автор:</strong> {{ book.author }}</p>#}
+{#                <p class="text-gray-700 mb-2"><strong>Жанр:</strong> {{ book.genre }}</p>#}
+{#                <p class="text-gray-700 mb-2"><strong>Описание:</strong> {{ book.description }}</p>#}
+{#                <p class="text-gray-700 mb-2"><strong>Цена:</strong> {{ book.price }} лв.</p>#}
+{##}
+{#                Бутони#}
+{#                <div class="flex space-x-4 mt-4">#}
+{#                    <a href="{% url 'add_to_favorites' book.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добави в любими</a>#}
+{#                    <a href="{% url 'checkout' book.id %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Купи с карта</a>#}
+{#                    <a href="{% url 'add_review' book.id %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Добави отзив</a>#}
+{#                </div>#}
+{##}
+{#                Споделяне в социалните мрежи#}
+{#                <div class="mt-6">#}
+{#                    <p class="font-semibold mb-2">Сподели в социалните мрежи:</p>#}
+{#                    <div class="flex space-x-4">#}
+{#                        <a href="https://facebook.com/share?url={{ request.build_absolute_uri }}" class="bg-blue-600 hover:bg-blue-800 text-white py-2 px-4 rounded">Facebook</a>#}
+{#                        <a href="https://twitter.com/share?url={{ request.build_absolute_uri }}" class="bg-blue-400 hover:bg-blue-600 text-white py-2 px-4 rounded">Twitter</a>#}
+{#                        <a href="https://linkedin.com/shareArticle?url={{ request.build_absolute_uri }}" class="bg-blue-700 hover:bg-blue-900 text-white py-2 px-4 rounded">LinkedIn</a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                Секция за отзиви#}
+{#                <div class="mt-6">#}
+{#                    <h3 class="text-xl font-semibold">Отзиви</h3>#}
+{#                    {% if book.reviews.all %}#}
+{#                        <ul class="list-disc list-inside">#}
+{#                            {% for review in book.reviews.all %}#}
+{#                                <li>#}
+{#                                    <strong>{{ review.user }}:</strong> {{ review.comment }} (Оценка: {{ review.rating }})#}
+{#                                </li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    {% else %}#}
+{#                        <p>Няма отзиви за тази книга.</p>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </main>#}
+{##}
+{#    <footer class="bg-gray-800 text-white text-center p-4 mt-8">#}
+{#        &copy; 2024 Онлайн Книжарница#}
+{#    </footer>#}
+{#</body>#}
+{#</html>#}
+{##}
+
+{#===============================================>#}
+
+{#{% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="bg">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>{{ book.title }}</title>#}
+{#    <link rel="stylesheet" href="{% static 'css/styles.css' %}">#}
+{#</head>#}
+{#<body class="bg-gray-100 text-gray-800">#}
+{#    <header class="bg-gray-800 text-white p-4">#}
+{#        <h1 class="text-3xl">Детайли за книгата: {{ book.title }}</h1>#}
+{#    </header>#}
+{##}
+{#    <main class="container mx-auto p-4">#}
+{#        <div class="flex flex-col lg:flex-row gap-8 mt-6">#}
+{#            <!-- Лява секция за категориите -->#}
+{#            <div class="lg:w-1/4 bg-blue-800 text-white p-4 shadow-md rounded-md">#}
+{#                <h2 class="text-lg font-bold mb-4">Категории</h2>#}
+{#                <ul class="space-y-2">#}
+{#                    {% for category in categories %}#}
+{#                        <li>#}
+{#                            <a href="{% url 'category_books' category.id %}" class="hover:underline text-white">#}
+{#                                {{ category.name }}#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    {% endfor %}#}
+{#                </ul>#}
+{#            </div>#}
+{##}
+{#            <!-- Дясна секция за детайлите на книгата -->#}
+{#            <div class="lg:w-3/4 bg-white p-6 shadow-md rounded-md">#}
+{#                <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ book.title }}</h2>#}
+{#                <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-auto max-h-64 object-contain shadow-md mb-4">#}
+{#                <p class="text-gray-700 mb-2"><strong>Автор:</strong> {{ book.author }}</p>#}
+{#                <p class="text-gray-700 mb-2"><strong>Жанр:</strong> {{ book.genre }}</p>#}
+{#                <p class="text-gray-700 mb-2"><strong>Описание:</strong> {{ book.description }}</p>#}
+{#                <p class="text-gray-700 mb-2"><strong>Цена:</strong> {{ book.price }} лв.</p>#}
+{##}
+{#                <!-- Бутони -->#}
+{#                <div class="flex space-x-4 mt-4">#}
+{#                    <a href="{% url 'add_to_favorites' book.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добави в любими</a>#}
+{#                    <a href="{% url 'checkout' book.id %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Купи с карта</a>#}
+{#                    <a href="{% url 'add_review' book.id %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Добави отзив</a>#}
+{#                </div>#}
+{##}
+{#                <!-- Споделяне в социалните мрежи -->#}
+{#                <div class="mt-6">#}
+{#                    <p class="font-semibold mb-2">Сподели в социалните мрежи:</p>#}
+{#                    <div class="flex space-x-4">#}
+{#                        <a href="https://facebook.com/share?url={{ request.build_absolute_uri }}" class="bg-blue-600 hover:bg-blue-800 text-white py-2 px-4 rounded">Facebook</a>#}
+{#                        <a href="https://twitter.com/share?url={{ request.build_absolute_uri }}" class="bg-blue-400 hover:bg-blue-600 text-white py-2 px-4 rounded">Twitter</a>#}
+{#                        <a href="https://linkedin.com/shareArticle?url={{ request.build_absolute_uri }}" class="bg-blue-700 hover:bg-blue-900 text-white py-2 px-4 rounded">LinkedIn</a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <!-- Секция за отзиви -->#}
+{#                <div class="mt-6">#}
+{#                    <h3 class="text-xl font-semibold">Отзиви</h3>#}
+{#                    {% if book.reviews.all %}#}
+{#                        <ul class="list-disc list-inside">#}
+{#                            {% for review in book.reviews.all %}#}
+{#                                <li>#}
+{#                                    <strong>{{ review.user }}:</strong> {{ review.comment }} (Оценка: {{ review.rating }})#}
+{#                                </li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    {% else %}#}
+{#                        <p>Няма отзиви за тази книга.</p>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </main>#}
+{##}
+{#    <footer class="bg-gray-800 text-white text-center p-4 mt-8">#}
+{#        &copy; 2024 Онлайн Книжарница#}
+{#    </footer>#}
+{#</body>#}
+{#</html>#}
+{#===============================================>#}
+
+
+{#{% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="bg">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>{{ book.title }}</title>#}
+{#    <link rel="stylesheet" href="{% static 'css/styles.css' %}">#}
+{#</head>#}
+{#<body class="bg-gray-100 text-gray-800">#}
+{#    <header class="bg-gray-800 text-white p-4">#}
+{#        <h1 class="text-3xl">Детайли за книгата: {{ book.title }}</h1>#}
+{#    </header>#}
+{##}
+{#    <main class="container mx-auto p-4">#}
+{#        <div class="flex flex-col lg:flex-row gap-8 mt-6">#}
+{#            <!-- Лява секция за категориите -->#}
+{#            <div class="lg:w-1/4 bg-blue-800 text-white p-4 shadow-md rounded-md">#}
+{#                <h2 class="text-lg font-bold mb-4">Категории</h2>#}
+{#                <ul class="space-y-2">#}
+{#                    {% for category in categories %}#}
+{#                        <li>#}
+{#                            <a href="{% url 'category_books' category.id %}" class="hover:underline text-white">#}
+{#                                {{ category.name }}#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    {% endfor %}#}
+{#                </ul>#}
+{#            </div>#}
+{##}
+{#            <!-- Дясна секция за детайлите на книгата -->#}
+{#            <div class="lg:w-3/4 bg-white p-8 shadow-md rounded-md">#}
+{#                <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ book.title }}</h2>#}
+{#                <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-auto max-h-64 object-contain shadow-md mb-4">#}
+{#                <p class="text-gray-700 mb-4"><strong>Автор:</strong> {{ book.author }}</p>#}
+{#                <p class="text-gray-700 mb-4"><strong>Жанр:</strong> {{ book.genre }}</p>#}
+{#                <p class="text-gray-700 mb-4"><strong>Описание:</strong> {{ book.description }}</p>#}
+{#                <p class="text-gray-700 mb-4"><strong>Цена:</strong> {{ book.price }} лв.</p>#}
+{##}
+{#                <!-- Бутони -->#}
+{#                <div class="flex flex-wrap space-x-4 mt-4">#}
+{#                    <a href="{% url 'add_to_favorites' book.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2">Добави в любими</a>#}
+{#                    <a href="{% url 'checkout' book.id %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-2">Купи с карта</a>#}
+{#                    <a href="{% url 'add_review' book.id %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mb-2">Добави отзив</a>#}
+{#                </div>#}
+{##}
+{#                <!-- Споделяне в социалните мрежи -->#}
+{#                <div class="mt-6">#}
+{#                    <p class="font-semibold mb-2">Сподели в социалните мрежи:</p>#}
+{#                    <div class="flex space-x-4">#}
+{#                        <a href="https://facebook.com/share?url={{ request.build_absolute_uri }}" class="bg-blue-600 hover:bg-blue-800 text-white py-2 px-4 rounded">Facebook</a>#}
+{#                        <a href="https://twitter.com/share?url={{ request.build_absolute_uri }}" class="bg-blue-400 hover:bg-blue-600 text-white py-2 px-4 rounded">Twitter</a>#}
+{#                        <a href="https://linkedin.com/shareArticle?url={{ request.build_absolute_uri }}" class="bg-blue-700 hover:bg-blue-900 text-white py-2 px-4 rounded">LinkedIn</a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <!-- Секция за отзиви -->#}
+{#                <div class="mt-6 p-6 bg-gray-100 rounded-md">#}
+{#                    <h3 class="text-xl font-semibold">Отзиви</h3>#}
+{#                    {% if book.reviews.all %}#}
+{#                        <ul class="list-disc list-inside space-y-2">#}
+{#                            {% for review in book.reviews.all %}#}
+{#                                <li>#}
+{#                                    <strong>{{ review.user }}:</strong> {{ review.comment }} (Оценка: {{ review.rating }})#}
+{#                                </li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    {% else %}#}
+{#                        <p>Няма отзиви за тази книга.</p>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </main>#}
+{##}
+{#    <footer class="bg-gray-800 text-white text-center p-4 mt-8">#}
+{#        &copy; 2024 Онлайн Книжарница#}
+{#    </footer>#}
+{#</body>#}
+{#</html>#}
+
+{% extends "bookstore/base.html" %}
+
+{% block title %}Детайли за книгата: {{ book.title }}{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col lg:flex-row gap-8 mt-6">
+        <div class="lg:w-1/4 bg-blue-800 text-white p-4 shadow-md rounded-md">
+            <h2 class="text-lg font-bold mb-4">Категории</h2>
+            <ul class="space-y-2">
+                {% for category in categories %}
+                    <li>
+                        <a href="{% url 'category_books' category.id %}" class="hover:underline text-white">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="lg:w-3/4 bg-white p-10 shadow-md rounded-md">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ book.title }}</h2>
+            <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-auto max-h-64 object-contain shadow-md mb-4">
+            <p class="text-gray-700 mb-2"><strong>Автор:</strong> {{ book.author }}</p>
+            <p class="text-gray-700 mb-2"><strong>Жанр:</strong> {{ book.genre }}</p>
+            <p class="text-gray-700 mb-2"><strong>Описание:</strong> {{ book.description }}</p>
+            <p class="text-gray-700 mb-2"><strong>Цена:</strong> {{ book.price }} лв.</p>
+
+            <div class="flex space-x-4 mt-4">
+                <a href="{% url 'add_to_favorites' book.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добави в любими</a>
+                <a href="{% url 'checkout' book.id %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Купи с карта</a>
+                <a href="{% url 'add_review' book.id %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Добави отзив</a>
+            </div>
+
+            <div class="mt-6">
+                <p class="font-semibold mb-2">Сподели в социалните мрежи:</p>
+                <div class="flex space-x-4">
+                    <a href="https://facebook.com/share?url={{ request.build_absolute_uri }}" class="bg-blue-600 hover:bg-blue-800 text-white py-2 px-4 rounded">Facebook</a>
+                    <a href="https://twitter.com/share?url={{ request.build_absolute_uri }}" class="bg-blue-400 hover:bg-blue-600 text-white py-2 px-4 rounded">Twitter</a>
+                    <a href="https://linkedin.com/shareArticle?url={{ request.build_absolute_uri }}" class="bg-blue-700 hover:bg-blue-900 text-white py-2 px-4 rounded">LinkedIn</a>
+                </div>
+            </div>
+
+            <div class="mt-6 p-8 bg-gray-100 rounded">
+                <h3 class="text-xl font-semibold">Отзиви</h3>
+                {% if book.reviews.all %}
+                    <ul class="list-disc list-inside space-y-2">
+                        {% for review in book.reviews.all %}
+                            <li>
+                                <strong>{{ review.user }}:</strong> {{ review.comment }} (Оценка: {{ review.rating }})
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Няма отзиви за тази книга.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

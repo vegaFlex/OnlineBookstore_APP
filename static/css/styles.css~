@@ -949,7 +949,3 @@ video {
 .hover\:underline:hover {
     text-decoration: underline;
 }
-
-.text-padding {
-    padding: 1.5rem; /* Дава отстояние на текста от всички страни */
-}
